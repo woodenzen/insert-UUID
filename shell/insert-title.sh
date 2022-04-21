@@ -59,30 +59,30 @@ for filename in $ZK/*.txt; do
     title=$( basename "$filename" .txt )
     # Grab title from the filename
     if ! [[ "$title" =~ ^[0-9]{12}.* ]]; then
-    # For notes that don't led with a UUID
+    # For filenames that don't led with a UUID
         cp $filename "/$ZK/backup/$title.txt"
         #  make a backup in the bak directory
-        plain=`echo $title | removedashes | capitalize`
+        # plain=`echo $title | removedashes | capitalize`
         #  remove dashes and capitalize if needed
         awk 'BEGIN{ print "\n" }1' $filename > "$ZK/tmp/$title.tmp"
         # add a blank line on the first line to except title
         sed '1a\
-File Name: '$plain'
+Title: '$title'
 
         ' < "$ZK/tmp/$title.tmp" | sed '1d'> "/$ZK/modified/$title.txt"
         # place title and remove extra line
 rm "$ZK/tmp/$title.tmp"
 # rm tmp file, no longer needed
     else;
-    # for notes with a UUID
+    # for filenames with a UUID
         cp $filename "$ZK/backup/$title.txt"
         #  make a backup in the bak directory
-        uuid=`echo "${title:13:100}" | removedashes | capitalize`
+        # uuid=`echo "${title:13:100}" | removedashes | capitalize`
         #  remove dashes and capitalize if needed
         awk 'BEGIN{ print "\n" }1' $filename > "$ZK/tmp/$title.tmp"
         # add a blank line on the first line to except title
         sed '1a\
-File Name: '$uuid'
+Title: '$title'
 
         ' < "$ZK/tmp/$title.tmp" | sed '1d' > "$ZK/modified/$title.txt" 
         # place title and remove extra line
