@@ -14,7 +14,7 @@ def titlecase(s):
         r"[A-Za-z]+('[A-Za-z]+)?",
         lambda word: word.group(0).capitalize(),s)
 
-dir = "/Users/will/Dropbox/Projects/testzks/daniel"
+dir = "/Users/will/Dropbox/Projects/testzks/daniel/"
 token = "›"
 
 for file in os.listdir(dir):
@@ -32,12 +32,12 @@ for file in os.listdir(dir):
         #     continue
         with open(zettel_path, "r") as prev_file:
             if check() == 0:
-                print("temp/" + os.path.join(file))
+                print(dir + "tmp/" + os.path.join(file))
                 print(old_note_name)
-                with open("temp/" + os.path.join(file), "w") as new_file:
+                with open(dir + "tmp/" + os.path.join(file), "w") as new_file:
                     prev_contents = prev_file.readlines()
                     # you may add the new line to this list at any position
-                    prev_contents.insert(0, f"File Name: {old_note_name}\n\n") # ›[[{res[0]}]]\n
+                    prev_contents.insert(0, f"title: {note_name}\n\n") # ›[[{res[0]}]]\n
                     # print(prev_contents)
                     new_file.write(''.join(''.join(elems)
                                            for elems in prev_contents))
